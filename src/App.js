@@ -130,11 +130,12 @@ class App extends React.Component {
     };
 
     render() {
+        const { isSignedIn, imageUrl, route, box } = this.state;
         return (
             <div className="App">
                 <ParticlesBg type="cobweb" bg={true} />
-                <Navigation isSignedIn={this.state.isSignedIn} onRouteChange={this.onRouteChange} />
-                {this.state.route === 'home' ? (
+                <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} />
+                {route === 'home' ? (
                     <div>
                         <Logo />
                         <Rank />
@@ -143,11 +144,11 @@ class App extends React.Component {
                             onButtonSubmit={this.onButtonSubmit}
                         />
                         <FaceRecognition
-                            box={this.state.box}
-                            imageUrl={this.state.imageUrl}
+                            box={box}
+                            imageUrl={imageUrl}
                         />
                     </div>
-                ) : this.state.route === 'signin' ? (
+                ) : route === 'signin' ? (
                     <SignIn onRouteChange={this.onRouteChange} />
                 ) : (
                     <Register onRouteChange={this.onRouteChange} />

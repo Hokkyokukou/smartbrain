@@ -58,17 +58,51 @@ class App extends React.Component {
         this.state = {
             input: '',
             imageUrl: '',
+            box: {},
         };
     }
 
+    calculateFaceLocation = (data) => {
+        const regions = data.outputs[0].data.regions[0];
+        const image = document.getElementById('inputimage');
+        const imageWidth = image.width;
+        const imageHeight = image.height;
+
+        // Accessing and rounding the bounding box values
+        const boundingBox = regions.region_info.bounding_box;
+
+        // Check values
+        // console.log('Top Row:', boundingBox.top_row);
+        // console.log('Left Col:', boundingBox.left_col);
+        // console.log('Bottom Row:', boundingBox.bottom_row);
+        // console.log('Right Col:', boundingBox.right_col);
+
+        //Calculate faces
+        const topRow = boundingBox.top_row * imageHeight;
+        const leftCol = boundingBox.left_col * imageWidth;
+        const bottomRow = imageHeight - boundingBox.bottom_row * imageHeight;
+        const rightCol = imageWidth - boundingBox.right_col * imageWidth;
+
+        return {
+            topRow: topRow,
+            leftCol: leftCol,
+            bottomRow: bottomRow,
+            rightCol: rightCol,
+        };
+    };
+
+    displayFaceBox = (box) => {
+        // console.log(box);
+        this.setState({ box: box });
+    };
+
     onInputChange = (event) => {
-        this.setState({input: event.target.value});
+        this.setState({ input: event.target.value });
     };
 
     onButtonSubmit = () => {
-        this.setState({imageUrl: this.state.input});
+        this.setState({ imageUrl: this.state.input });
         //app.models.predict('face-detection', this.state.input)
-
         fetch(
             'https://api.clarifai.com/v2/models/' +
                 'face-detection' +
@@ -78,6 +112,7 @@ class App extends React.Component {
             .then((response) => response.json())
             .then((result) => {
                 console.log(result);
+                this.displayFaceBox(this.calculateFaceLocation(result));
             });
     };
 
@@ -92,7 +127,10 @@ class App extends React.Component {
                     onInputChange={this.onInputChange}
                     onButtonSubmit={this.onButtonSubmit}
                 />
-                <FaceRecognition imageUrl={this.state.imageUrl}/>
+                <FaceRecognition
+                    box={this.state.box}
+                    imageUrl={this.state.imageUrl}
+                />
             </div>
         );
     }

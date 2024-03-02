@@ -118,15 +118,15 @@ class App extends React.Component {
             });
     };
 
-    onRouteChange = () => {
-        this.setState({route: 'home'});
+    onRouteChange = (route) => {
+        this.setState({route: route});
     }
 
     render() {
         return (
             <div className="App">
                 <ParticlesBg type="cobweb" bg={true} />
-                <Navigation />
+                <Navigation onRouteChange={this.onRouteChange} />
                 {this.state.route === 'signin' ? (
                     <SignIn onRouteChange={this.onRouteChange} />
                 ) : (

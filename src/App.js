@@ -1,5 +1,5 @@
 import './App.css';
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 
 //Components
 import Navigation from './components/Navigation/Navigation';
@@ -143,10 +143,14 @@ class App extends Component {
                             id: this.state.id,
                         }),
                     })
-                    .then((response) => response.json())
-                    .then(count => {
-                        this.setState(Object.assign(this.state.user, { entries: count}))
-                    });
+                        .then((response) => response.json())
+                        .then((count) => {
+                            this.setState(
+                                Object.assign(this.state.user, {
+                                    entries: count,
+                                })
+                            );
+                        });
                 }
                 this.displayFaceBox(this.calculateFaceLocation(response));
             });

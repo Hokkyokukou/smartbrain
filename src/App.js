@@ -12,47 +12,6 @@ import Register from './components/Register/Register';
 
 //Libraries
 import ParticlesBg from 'particles-bg';
-// import Clarifai from 'clarifai';
-
-//old way
-// const app = new Clarifai.App({
-//     apiKey: '2d0723e917324cba87129d2f2f10f4b1',
-// });
-
-const returnClarifaiRequestOptions = (imageUrl) => {
-    // Your PAT (Personal Access Token) can be found in the portal under Authentification
-    const PAT = '7623b833aa2b48a1b0424d30dd6cc4a6';
-    const USER_ID = 'tx3c4w2ynkgs';
-    const APP_ID = 'face-recognition-brain';
-    const IMAGE_URL = imageUrl;
-
-    const raw = JSON.stringify({
-        user_app_id: {
-            user_id: USER_ID,
-            app_id: APP_ID,
-        },
-        inputs: [
-            {
-                data: {
-                    image: {
-                        url: IMAGE_URL,
-                    },
-                },
-            },
-        ],
-    });
-
-    const requestOptions = {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            Authorization: 'Key ' + PAT,
-        },
-        body: raw,
-    };
-
-    return requestOptions;
-};
 
 const initialState = {
     input: '',
@@ -65,8 +24,8 @@ const initialState = {
         name: '',
         email: '',
         entries: 0,
-        joined: ''
-    }
+        joined: '',
+    },
 };
 
 class App extends Component {
@@ -88,31 +47,17 @@ class App extends Component {
     };
 
     calculateFaceLocation = (data) => {
-        const regions = data.outputs[0].data.regions[0];
+        const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
         const image = document.getElementById('inputimage');
-        const imageWidth = image.width;
-        const imageHeight = image.height;
-
-        // Accessing and rounding the bounding box values
-        const boundingBox = regions.region_info.bounding_box;
-
-        // Check values
-        // console.log('Top Row:', boundingBox.top_row);
-        // console.log('Left Col:', boundingBox.left_col);
-        // console.log('Bottom Row:', boundingBox.bottom_row);
-        // console.log('Right Col:', boundingBox.right_col);
+        const imageWidth = Number(image.width);
+        const imageHeight = Number(image.height);
 
         //Calculate faces
-        const topRow = boundingBox.top_row * imageHeight;
-        const leftCol = boundingBox.left_col * imageWidth;
-        const bottomRow = imageHeight - boundingBox.bottom_row * imageHeight;
-        const rightCol = imageWidth - boundingBox.right_col * imageWidth;
-
         return {
-            topRow: topRow,
-            leftCol: leftCol,
-            bottomRow: bottomRow,
-            rightCol: rightCol,
+            topRow: clarifaiFace.top_row * imageHeight,
+            leftCol: clarifaiFace.left_col * imageWidth,
+            bottomRow: imageHeight - (clarifaiFace.bottom_row * imageHeight),
+            rightCol: imageWidth - (clarifaiFace.right_col * imageWidth)
         };
     };
 
@@ -127,17 +72,24 @@ class App extends Component {
 
     onPictureSubmit = () => {
         this.setState({ imageUrl: this.state.input });
-        //app.models.predict('face-detection', this.state.input)
-        fetch(
-            'https://api.clarifai.com/v2/models/' +
-                'face-detection' +
-                '/outputs',
-            returnClarifaiRequestOptions(this.state.input)
-        )
-            .then((response) => response.json())
+        fetch('http://localhost:3000/imageurl', {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                input: this.state.input,
+            }),
+        })
             .then((response) => {
-                // console.log(result);
-                if (response) {
+                if (response.status === 500) {
+                    throw new Error(
+                        'Whoops! Sorry, we are currently unable to connect to the API.'
+                    );
+                }
+                return response.json();
+            })
+            .then((result) => {
+                //console.log(result)
+                if (result) {
                     fetch('http://localhost:3000/image', {
                         method: 'put',
                         headers: { 'Content-Type': 'application/json' },
@@ -147,12 +99,17 @@ class App extends Component {
                     })
                         .then((response) => response.json())
                         .then((count) => {
-                            this.setState(Object.assign(this.state.user, {entries: count}));
+                            this.setState(
+                                Object.assign(this.state.user, {
+                                    entries: count,
+                                })
+                            );
                         })
-                        .catch(console.log)
+                        .catch(console.log);
                 }
-                this.displayFaceBox(this.calculateFaceLocation(response));
-            });
+                this.displayFaceBox(this.calculateFaceLocation(result));
+            })
+            .catch((err) => console.log(err));
     };
 
     onRouteChange = (route) => {

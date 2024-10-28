@@ -20,21 +20,27 @@ SmartBrain is designed as a showcase of practical full-stack skills. Specificall
 
 ### Setup & Run 💻
 
-1. Clone the repository:
+1. **Clone the client repository:**
    ```bash
    git clone https://github.com/Hokkyokukou/smartbrain.git
    ```
 
-2. Install dependencies for the client and server:
+2. **Install dependencies for the client:**
    ```bash
    cd smartbrain
    npm install
-   Go to https://github.com/Hokkyokukou/smart-brain-api 
-   git clone https://github.com/Hokkyokukou/smart-brain-api.git
-   node server.js
    ```
 
-3. Create a `.env` file in the server folder with the following variables:
+3. **Clone the server repository:**
+   To run the backend server, you will need to clone a separate repository:
+   ```bash
+   git clone https://github.com/Hokkyokukou/smart-brain-api.git
+   cd smart-brain-api
+   npm install
+   ```
+
+4. **Set up environment variables for the server:**
+   Create a `.env` file in the server folder with the following variables:
    ```plaintext
    CLARIFAI_API_KEY=your_key
    APP_ID=face-recognition-brain
@@ -46,7 +52,14 @@ SmartBrain is designed as a showcase of practical full-stack skills. Specificall
    USER_ID=your_user_id
    ```
 
-4. Start the application:
+5. **Start the backend server:**
+   Run the server:
+   ```bash
+   node server.js
+   ```
+
+6. **Start the client application:**
+   In a separate terminal window, return to the `smartbrain` directory and run:
    ```bash
    npm start
    ```

@@ -22,15 +22,16 @@ SmartBrain is designed as a showcase of practical full-stack skills. Specificall
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/SmartBrain.git
+   git clone https://github.com/Hokkyokukou/smartbrain.git
    ```
 
 2. Install dependencies for the client and server:
    ```bash
-   cd SmartBrain
+   cd smartbrain
    npm install
-   cd server
-   npm install
+   Go to https://github.com/Hokkyokukou/smart-brain-api 
+   git clone https://github.com/Hokkyokukou/smart-brain-api.git
+   node server.js
    ```
 
 3. Create a `.env` file in the server folder with the following variables:

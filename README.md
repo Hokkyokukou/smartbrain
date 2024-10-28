@@ -1,7 +1,7 @@
 ### SmartBrain - Face Detection App 👁️✨
 
 > **Personal Description:**  
-> _SmartBrain is a milestone project that brings together all the skills I acquired in my full-stack development journey. Through this app, I aimed to create a practical and interactive face detection solution, combining React for the front end, Node.js and Express.js for the back end, and PostgreSQL as the database. This project showcases a hands-on approach to programming with machine learning applications and serves as a potential foundation for implementing future features in AI and computer vision._
+> _SmartBrain is a milestone project that brings together all the skills I acquired in my full-stack development journey. Through this app, I aimed to create a practical and interactive face detection solution, combining React for the front end, Node.js and Express.js for the back end (see [SmartBrain API](https://github.com/Hokkyokukou/smart-brain-api)), and PostgreSQL as the database. This project showcases a hands-on approach to programming with machine learning applications and serves as a potential foundation for implementing future features in AI and computer vision._
 
 ---
 
@@ -9,7 +9,7 @@
 
 - **Face Detection**: Using the Clarifai API, SmartBrain detects faces in uploaded images, providing an interactive and engaging user experience.
 - **React Front-End**: The front end is built with React, creating a responsive and dynamic interface focused on simplicity and usability.
-- **Node.js and Express Back-End**: This app uses a Node.js and Express server architecture to handle API logic efficiently.
+- **Node.js and Express Back-End**: This app uses a Node.js and Express server architecture to handle API logic efficiently (see [SmartBrain API](https://github.com/Hokkyokukou/smart-brain-api)).
 - **PostgreSQL Database**: User data and interactions are stored in a PostgreSQL database, ensuring data integrity and persistence.
 
 ### Project Objectives 🏆
@@ -20,27 +20,19 @@ SmartBrain is designed as a showcase of practical full-stack skills. Specificall
 
 ### Setup & Run 💻
 
-1. **Clone the client repository:**
-   ```bash
-   git clone https://github.com/Hokkyokukou/smartbrain.git
-   ```
-
-2. **Install dependencies for the client:**
-   ```bash
-   cd smartbrain
-   npm install
-   ```
-
-3. **Clone the server repository:**
-   To run the backend server, you will need to clone a separate repository:
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/Hokkyokukou/smart-brain-api.git
    cd smart-brain-api
+   ```
+
+2. **Install dependencies:**
+   ```bash
    npm install
    ```
 
-4. **Set up environment variables for the server:**
-   Create a `.env` file in the server folder with the following variables:
+3. **Set up environment variables:**
+   Create a `.env` file in the root folder with the following variables:
    ```plaintext
    CLARIFAI_API_KEY=your_key
    APP_ID=face-recognition-brain
@@ -52,14 +44,11 @@ SmartBrain is designed as a showcase of practical full-stack skills. Specificall
    USER_ID=your_user_id
    ```
 
-5. **Start the backend server:**
-   Run the server:
+4. **Start the server:**
    ```bash
    node server.js
    ```
 
-6. **Start the client application:**
-   In a separate terminal window, return to the `smartbrain` directory and run:
-   ```bash
-   npm start
-   ```
+---
+
+> **Note**: This project works in conjunction with the back end application. To see how the two components interact, please visit the [SmartBrain API Repository](https://github.com/Hokkyokukou/smart-brain-api).

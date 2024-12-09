@@ -1,5 +1,8 @@
 ### SmartBrain - Face Detection App 👁️✨
 
+![GitHub stars](https://img.shields.io/github/stars/Hokkyokukou/smartbrain?style=social)
+![GitHub forks](https://img.shields.io/github/forks/Hokkyokukou/smartbrain?style=social)
+
 > **Personal Description:**  
 > _SmartBrain is a milestone project that brings together all the skills I acquired in my full-stack development journey. Through this app, I aimed to create a practical and interactive face detection solution, combining React for the front-end, Node.js and Express.js for the back-end (see [SmartBrain API](https://github.com/Hokkyokukou/smart-brain-api)), and PostgreSQL as the database. This project showcases a hands-on approach to programming with machine learning applications and serves as a potential foundation for implementing future features in AI and computer vision._
 

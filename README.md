@@ -39,7 +39,7 @@ Follow these steps to set up and run both the front-end and back-end of the Smar
 3. **Set up environment variables:**
    Create a `.env` file in the root folder with the following variables:
    ```plaintext
-   REACT_APP_API_URL=your_server
+   VITE_API_URL=your_server
    ```
 
 4. **Clone the server repository:**
@@ -75,7 +75,7 @@ Follow these steps to set up and run both the front-end and back-end of the Smar
 7. **Start the front-end application:**
 After started the server, in a separate terminal window, return to the `smartbrain` directory and run:
    ```bash
-   npm start
+   npm run dev
    ```
 
 > **Note**: This project works in conjunction with the back-end application. To see how the two components interact, please visit the [SmartBrain API Repository](https://github.com/Hokkyokukou/smart-brain-api).

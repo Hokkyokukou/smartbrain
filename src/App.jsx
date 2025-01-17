@@ -1,5 +1,5 @@
 import './App.css';
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 //Components
 import Navigation from './components/Navigation/Navigation';
@@ -72,7 +72,7 @@ class App extends Component {
 
     onPictureSubmit = () => {
         this.setState({ imageUrl: this.state.input });
-        fetch(`${process.env.REACT_APP_API_URL}/imageurl`, {
+        fetch(`${import.meta.env.VITE_API_URL}/imageurl`, {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -90,7 +90,7 @@ class App extends Component {
             .then((result) => {
                 //console.log(result)
                 if (result) {
-                    fetch(`${process.env.REACT_APP_API_URL}/image`, {
+                    fetch(`${import.meta.env.VITE_API_URL}/image`, {
                         method: 'put',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({

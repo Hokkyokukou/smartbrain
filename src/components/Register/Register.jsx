@@ -6,10 +6,10 @@ class Register extends React.Component {
         this.state = {
             email: '',
             passwordl: '',
-            name:''
+            name: '',
         };
     }
-    
+
     onNameChange = (event) => {
         this.setState({ name: event.target.value });
     };
@@ -22,7 +22,7 @@ class Register extends React.Component {
 
     onSubmitSignIn = () => {
         // console.log(this.state);
-        fetch(`${process.env.REACT_APP_API_URL}/register`, {
+        fetch(`${import.meta.env.VITE_API_URL}/register`, {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -34,7 +34,7 @@ class Register extends React.Component {
             .then((response) => response.json())
             .then((user) => {
                 if (user.id) {
-                    this.props.loadUser(user)
+                    this.props.loadUser(user);
                     this.props.onRouteChange('home');
                 }
             });

@@ -17,7 +17,7 @@ class SignIn extends React.Component {
 
     onSubmitSignIn = () => {
         // console.log(this.state);
-        fetch(`${process.env.REACT_APP_API_URL}/signin`, {
+        fetch(`${import.meta.env.VITE_API_URL}/signin`, {
             method: 'post',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -28,7 +28,7 @@ class SignIn extends React.Component {
             .then((response) => response.json())
             .then((user) => {
                 if (user.id) {
-                    this.props.loadUser(user)
+                    this.props.loadUser(user);
                     this.props.onRouteChange('home');
                 }
             });
